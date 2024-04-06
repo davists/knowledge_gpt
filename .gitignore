@@ -155,4 +155,5 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
-
+knowledge_gpt/template_prompt/*
+knowledge_gpt/knowledge_base/*

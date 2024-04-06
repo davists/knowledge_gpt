@@ -106,3 +106,7 @@ def read_file(file: BytesIO) -> File:
         return TxtFile.from_bytes(file)
     else:
         raise NotImplementedError(f"File type {file.name.split('.')[-1]} not supported")
+
+def open_local_file(file_path: str) -> File:
+    file_content = open(file_path, 'rb')
+    return TxtFile.from_bytes(file_content)
