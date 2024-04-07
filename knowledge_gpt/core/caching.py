@@ -12,7 +12,7 @@ def file_hash_func(file: File) -> str:
     return file.id
 
 
-@st.cache_data(show_spinner=False,persist=True)
+@st.cache_data(show_spinner=False, persist=True)
 def bootstrap_caching():
     """Patch module functions with caching"""
 
@@ -24,10 +24,10 @@ def bootstrap_caching():
     ]
     file_hash_funcs: HashFuncsDict = {cls: file_hash_func for cls in file_subtypes}
 
-    parsing.read_file = st.cache_data(show_spinner=False,persist=True)(parsing.read_file)
-    chunking.chunk_file = st.cache_data(show_spinner=False, persist=True,hash_funcs=file_hash_funcs)(
+    parsing.read_file = st.cache_data(show_spinner=False)(parsing.read_file)
+    chunking.chunk_file = st.cache_data(show_spinner=False, hash_funcs=file_hash_funcs)(
         chunking.chunk_file
     )
     embedding.embed_files = st.cache_data(
-        show_spinner=False, persist=True, hash_funcs=file_hash_funcs
+        show_spinner=False, hash_funcs=file_hash_funcs
     )(embedding.embed_files)
