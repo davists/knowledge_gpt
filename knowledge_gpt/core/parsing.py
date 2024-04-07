@@ -6,6 +6,9 @@ import docx2txt
 from langchain.docstore.document import Document
 import fitz
 from hashlib import md5
+from PIL import Image
+import pytesseract
+
 
 from abc import abstractmethod, ABC
 from copy import deepcopy
@@ -56,6 +59,15 @@ def strip_consecutive_newlines(text: str) -> str:
     """
     return re.sub(r"\s*\n\s*", "\n", text)
 
+class ImageFile(File):
+    @classmethod
+    def from_bytes(cls, file: BytesIO) -> "ImageFile":
+        im = Image.open(file)
+        text = pytesseract.image_to_string(im)
+        text = strip_consecutive_newlines(text)
+        doc = Document(page_content=text.strip())
+        doc.metadata["source"] = "p-1"
+        return cls(name=file.name, id=md5(file.read()).hexdigest(), docs=[doc])
 
 class DocxFile(File):
     @classmethod
@@ -104,6 +116,8 @@ def read_file(file: BytesIO) -> File:
         return PdfFile.from_bytes(file)
     elif file.name.lower().endswith(".txt"):
         return TxtFile.from_bytes(file)
+    elif file.name.lower().endswith(".jpg") or file.name.lower().endswith(".jpeg") or file.name.lower().endswith(".png"):
+        return ImageFile.from_bytes(file)
     else:
         raise NotImplementedError(f"File type {file.name.split('.')[-1]} not supported")
 
