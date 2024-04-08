@@ -62,8 +62,8 @@ def strip_consecutive_newlines(text: str) -> str:
 class ImageFile(File):
     @classmethod
     def from_bytes(cls, file: BytesIO) -> "ImageFile":
-        im = Image.open(file)
-        text = pytesseract.image_to_string(im)
+        img = Image.open(file)
+        text = pytesseract.image_to_string(img, lang='por')
         text = strip_consecutive_newlines(text)
         doc = Document(page_content=text.strip())
         doc.metadata["source"] = "p-1"
@@ -124,3 +124,11 @@ def read_file(file: BytesIO) -> File:
 def open_local_file(file_path: str) -> File:
     file_content = open(file_path, 'rb')
     return TxtFile.from_bytes(file_content)
+
+def docs_as_text(_docs: Document):
+    text = ''
+    
+    for _doc in _docs:
+        text += f"{_doc.page_content}\n"
+    
+    return text
