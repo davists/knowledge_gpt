@@ -16,6 +16,7 @@ RUN apt-get update && apt-get install -y \
     libtesseract-dev \
     libgl1 \
     tesseract-ocr-por \
+    tk \
     software-properties-common \
     && rm -rf /var/lib/apt/lists/* \
     && pip install "poetry==$POETRY_VERSION"
