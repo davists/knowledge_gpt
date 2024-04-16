@@ -8,6 +8,7 @@ import fitz
 from hashlib import md5
 from PIL import Image
 import pytesseract
+from pdf2image import convert_from_path, convert_from_bytes
 
 
 from abc import abstractmethod, ABC
@@ -94,6 +95,21 @@ class PdfFile(File):
         # file.read() mutates the file object, which can affect caching
         # so we need to reset the file pointer to the beginning
         file.seek(0)
+
+        if len(docs[0].page_content) == 0:
+            images = pdf_to_img(file.read())
+            text = ocr_core(images)
+
+            doc = Document(page_content=text.strip())
+            doc.metadata["page"] = 1
+            doc.metadata["source"] = f"p-{1}"
+            docs.append(doc)
+            
+        # Replace 'path_to_your_pdf.pdf' with the path to the PDF file you want to read
+        # images = pdf_to_img('/workspaces/knowledge_gpt/knowledge_gpt/template_prompt/1546-contrato-escaneado-1599741721.pdf')
+        # extracted_text = ocr_core(images)
+        # docs.append(extracted_text)
+        # print(extracted_text)
         return cls(name=file.name, id=md5(file.read()).hexdigest(), docs=docs)
 
 
@@ -131,4 +147,15 @@ def docs_as_text(_docs: Document):
     for _doc in _docs:
         text += f"{_doc.page_content}\n"
     
+    return text
+
+
+def pdf_to_img(pdf_file):
+    return convert_from_bytes(pdf_file)
+
+# Function to apply OCR on images
+def ocr_core(images):
+    text = ''
+    for img in images:
+        text += pytesseract.image_to_string(img, lang='por')  # You can specify language by adding lang='eng'
     return text
