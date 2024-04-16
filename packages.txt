@@ -2,5 +2,5 @@ tesseract-ocr
 libtesseract-dev
 libgl1
 tesseract-ocr-por
-tk
+python-tk
 poppler-utils
