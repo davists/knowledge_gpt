@@ -26,6 +26,14 @@ QUESTION: {question}
 =========
 FINAL ANSWER:"""
 
+
+# template = """
+#     Responda as perguntas com base no context: 
+#     <context>{context}</context>.
+#     Caso não consiga responder baseado no context, informar que a informação não está registrada na base de conhecimento. Sempre responda em português.
+# """
+
+
 STUFF_PROMPT = PromptTemplate(
     template=template, input_variables=["summaries", "question"]
 )

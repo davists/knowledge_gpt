@@ -1,11 +1,13 @@
  Considerando sua notória especialidade em direito civil e imobiliário faça uma análise de excelência 
- deste documento em anexo seguindo todas as suas instruções e considerando que deverá alertar o locatário 
- sobre todas cláusulas desequilibradas. Preciso que leia todo o documento, resuma e verifique se há violação da lei, 
+ deste document seguindo todas as instruções e considerando que deverá alertar o locatário 
+ sobre todas cláusulas desequilibradas. Leia todo o document, resuma e verifique se há violação da lei, 
  qual a lei rege o contrato e se doutrinariamente e na jurisprudência todas as cláusulas estão equilibradas, 
- dando atenção especial ao que possa haver desequilíbrio e violação legal para o locatário.
-
+ dando atenção especial ao que possa haver desequilíbrio e violação legal para o inquilino.
+ 
 ----------------------
-Documento: {contrato_enviado}
+<document>
+    {contrato_enviado}
+</document>
 ----------------------
 
 Instruções:
