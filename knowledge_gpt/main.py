@@ -17,7 +17,7 @@ MODEL_LIST = [
     #'CONTRATO DE LOCAÇÃO DE IMÓVEL'
 ]
 PROJECT_ROOT = Path(__file__).parent.resolve()
-GPT_MODEL = 'gpt-4-turbo'
+GPT_MODEL = 'gpt-4o'
 
 html_margin = """
     <style>
